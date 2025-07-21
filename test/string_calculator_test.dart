@@ -28,4 +28,30 @@ void main() {
   test('supports custom delimiter |', () {
     expect(calculate("//|\n4|5|6"), 15);
   });
+
+  test('throws exception for single negative number', () {
+    expect(
+      () => calculate("1,-2,3"),
+      throwsA(
+        predicate(
+          (e) =>
+              e is FormatException &&
+              e.message == "negative numbers not allowed: -2",
+        ),
+      ),
+    );
+  });
+
+  test('throws exception for multiple negative numbers', () {
+    expect(
+      () => calculate("1,-2,-5,3"),
+      throwsA(
+        predicate(
+          (e) =>
+              e is FormatException &&
+              e.message == "negative numbers not allowed: -2,-5",
+        ),
+      ),
+    );
+  });
 }
