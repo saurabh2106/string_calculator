@@ -17,7 +17,15 @@ int calculate([String? input]) {
       .replaceAll(delimiter, ',');
 
   final inputList = handleNewLines.split(',');
+  final List<int> inputIntList = inputList.map(int.parse).toList();
 
-  final sum = inputList.map(int.parse).reduce((a, b) => a + b);
+  final negativeValues = inputIntList.where((e) => e < 0);
+  if (negativeValues.isNotEmpty) {
+    throw FormatException(
+      "negative numbers not allowed: ${negativeValues.join(',')}",
+    );
+  }
+
+  final sum = inputIntList.reduce((a, b) => a + b);
   return sum;
 }
