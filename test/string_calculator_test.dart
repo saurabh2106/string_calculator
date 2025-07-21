@@ -63,4 +63,12 @@ void main() {
   test('supports custom delimiter of any length like [***]', () {
     expect(calculate("//[***]\n1***2***3"), 6);
   });
+
+  test('supports multiple single-char delimiters like [*][%]', () {
+    expect(calculate("//[*][%]\n1*2%3"), 6);
+  });
+
+  test('supports multiple long delimiters like [***][%%]', () {
+    expect(calculate("//[***][%%]\n1***2%%3"), 6);
+  });
 }
