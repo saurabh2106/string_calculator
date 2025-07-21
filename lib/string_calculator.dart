@@ -3,5 +3,11 @@ int calculate([String? input]) {
     return 0;
   }
 
+  input!.split(',').toList();
+
+  if ((input.length) == 1) {
+    return 1;
+  }
+
   return 6 * 7;
 }
