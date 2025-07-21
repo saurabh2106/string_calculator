@@ -59,4 +59,8 @@ void main() {
     expect(calculate("2,1001"), 2);
     expect(calculate("1000,1"), 1001);
   });
+
+  test('supports custom delimiter of any length like [***]', () {
+    expect(calculate("//[***]\n1***2***3"), 6);
+  });
 }
