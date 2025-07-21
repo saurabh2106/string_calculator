@@ -3,7 +3,8 @@ int calculate([String? input]) {
     return 0;
   }
 
-  List<String> inputList = input!.split(',').toList();
+  final handleNewLines = input!.replaceAll('\n', ',');
+  List<String> inputList = handleNewLines.split(',').toList();
 
   if ((inputList.length) == 1) {
     return 1;
