@@ -5,4 +5,8 @@ void main() {
   test('calculate', () {
     expect(calculate(), 42);
   });
+
+  test('add', () {
+    expect(calculate(''), 0);
+  },)
 }
