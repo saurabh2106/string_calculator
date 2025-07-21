@@ -1,46 +1,38 @@
 int calculate([String? input]) {
-  if ((input?.isEmpty ?? true)) {
-    return 0;
-  }
+  if (input == null || input.isEmpty) return 0;
+
   List<String> delimiters = [',', '\n'];
-  String delimiter = ',';
-  String newString = input!;
+  String numbers = input;
 
+  // Handle custom delimiter section
   if (input.startsWith('//')) {
-    final delimeterEnd = newString.indexOf('\n');
-    final inputParts = input.split('\n');
-    delimiter = inputParts[0].substring(2, delimeterEnd);
-    newString = inputParts[1];
+    final delimiterSectionEnd = input.indexOf('\n');
+    final delimiterPart = input.substring(2, delimiterSectionEnd);
+    numbers = input.substring(delimiterSectionEnd + 1);
+
+    final delimiterRegex = RegExp(r'\[(.*?)\]');
+    final matches = delimiterRegex.allMatches(delimiterPart);
+
+    if (matches.isNotEmpty) {
+      delimiters.addAll(matches.map((m) => m.group(1)!));
+    } else {
+      delimiters.add(delimiterPart);
+    }
   }
 
-  if (delimiter.startsWith('[')) {
-    final regex = RegExp(r'\[(.*?)\]');
-    delimiters.addAll(regex.allMatches(delimiter).map((e) => e.group(1)!));
-  } else {
-    delimiters.add(delimiter);
+  for (final d in delimiters) {
+    numbers = numbers.replaceAll(d, ',');
   }
 
-  for (var d in delimiters) {
-    newString = newString.replaceAll(d, ',');
-  }
+  final parts = numbers.split(',');
+  final intList = parts.map(int.parse).where((n) => n <= 1000).toList();
 
-  final handleNewLines = newString
-      .replaceAll('\n', ',')
-      .replaceAll(delimiter, ',');
-
-  final inputList = handleNewLines.split(',');
-  final List<int> inputIntList = inputList
-      .map(int.parse)
-      .where((e) => e <= 1000)
-      .toList();
-
-  final negativeValues = inputIntList.where((e) => e < 0);
-  if (negativeValues.isNotEmpty) {
+  final negatives = intList.where((n) => n < 0).toList();
+  if (negatives.isNotEmpty) {
     throw FormatException(
-      "negative numbers not allowed: ${negativeValues.join(',')}",
+      'negative numbers not allowed: ${negatives.join(',')}',
     );
   }
 
-  final sum = inputIntList.reduce((a, b) => a + b);
-  return sum;
+  return intList.fold(0, (sum, val) => sum + val);
 }
