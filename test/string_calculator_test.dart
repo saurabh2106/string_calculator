@@ -13,4 +13,8 @@ void main() {
   test('returns number when only one number is given', () {
     expect(calculate('1'), 1);
   });
+
+  test('returns sum when two comma separated numbers are given', () {
+    expect(calculate("1,2"), 3);
+  });
 }

@@ -3,11 +3,14 @@ int calculate([String? input]) {
     return 0;
   }
 
-  input!.split(',').toList();
+  List<String> inputList = input!.split(',').toList();
 
-  if ((input.length) == 1) {
+  if ((inputList.length) == 1) {
     return 1;
+  } else {
+    final sum = inputList
+        .map(int.parse)
+        .reduce((value, element) => value + element);
+    return sum;
   }
-
-  return 6 * 7;
 }
