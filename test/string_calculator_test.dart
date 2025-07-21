@@ -8,5 +8,5 @@ void main() {
 
   test('add', () {
     expect(calculate(''), 0);
-  },)
+  });
 }
