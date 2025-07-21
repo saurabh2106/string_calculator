@@ -6,7 +6,7 @@ void main() {
     expect(calculate(), 42);
   });
 
-  test('add', () {
+  test('returns 0 on empty string', () {
     expect(calculate(''), 0);
   });
 }
