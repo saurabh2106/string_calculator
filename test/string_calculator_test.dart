@@ -3,7 +3,7 @@ import 'package:test/test.dart';
 
 void main() {
   test('calculate', () {
-    expect(calculate(), 42);
+    expect(calculate(), 0);
   });
 
   test('returns 0 on empty string', () {
@@ -24,5 +24,8 @@ void main() {
 
   test('supports custom delimiter ;', () {
     expect(calculate("//;\n1;2"), 3);
+  });
+  test('supports custom delimiter |', () {
+    expect(calculate("//|\n4|5|6"), 15);
   });
 }

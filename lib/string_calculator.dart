@@ -1,17 +1,23 @@
 int calculate([String? input]) {
-  if (input?.isEmpty ?? true) {
+  if ((input?.isEmpty ?? true)) {
     return 0;
   }
 
-  final handleNewLines = input!.replaceAll('\n', ',');
-  List<String> inputList = handleNewLines.split(',').toList();
+  String delimiter = ',';
+  String newString = input!;
 
-  if ((inputList.length) == 1) {
-    return 1;
-  } else {
-    final sum = inputList
-        .map(int.parse)
-        .reduce((value, element) => value + element);
-    return sum;
+  if (input.startsWith('//')) {
+    final inputParts = input.split('\n');
+    delimiter = inputParts[0].substring(2);
+    newString = inputParts[1];
   }
+
+  final handleNewLines = newString
+      .replaceAll('\n', ',')
+      .replaceAll(delimiter, ',');
+
+  final inputList = handleNewLines.split(',');
+
+  final sum = inputList.map(int.parse).reduce((a, b) => a + b);
+  return sum;
 }
