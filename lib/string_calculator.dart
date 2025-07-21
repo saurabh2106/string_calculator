@@ -17,7 +17,10 @@ int calculate([String? input]) {
       .replaceAll(delimiter, ',');
 
   final inputList = handleNewLines.split(',');
-  final List<int> inputIntList = inputList.map(int.parse).toList();
+  final List<int> inputIntList = inputList
+      .map(int.parse)
+      .where((e) => e <= 1000)
+      .toList();
 
   final negativeValues = inputIntList.where((e) => e < 0);
   if (negativeValues.isNotEmpty) {

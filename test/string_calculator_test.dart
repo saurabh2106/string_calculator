@@ -54,4 +54,9 @@ void main() {
       ),
     );
   });
+
+  test('ignores numbers bigger than 1000', () {
+    expect(calculate("2,1001"), 2);
+    expect(calculate("1000,1"), 1001);
+  });
 }
