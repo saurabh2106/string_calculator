@@ -17,4 +17,8 @@ void main() {
   test('returns sum when two comma separated numbers are given', () {
     expect(calculate("1,2"), 3);
   });
+
+  test('handles new lines between numbers', () {
+    expect(calculate("1\n2,3"), 6);
+  });
 }
